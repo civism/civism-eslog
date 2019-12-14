@@ -36,7 +36,7 @@ public class Guava implements Serializable {
     /**
      * 写入时间
      */
-    private Long writeTime;
+    private String writeTime;
 
 
     /**

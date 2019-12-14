@@ -3,6 +3,7 @@ package com.civism.eslog.appender;
 import com.civism.eslog.es.Guava;
 import com.civism.eslog.es.GuavaClient;
 import java.net.InetAddress;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
@@ -38,7 +39,7 @@ public class EsAppender extends AppenderSkeleton {
         guava.setLevel(level.toString());
         guava.setLoggerName(loggerName);
         guava.setThreadName(threadName);
-        guava.setWriteTime(timeStamp);
+        guava.setWriteTime(DateFormatUtils.format(timeStamp, "yyyy-MM-dd HH:mm:ss"));
         try {
             InetAddress address = InetAddress.getLocalHost();
             guava.setIp(address.getHostAddress());
