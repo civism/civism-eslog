@@ -38,7 +38,6 @@
 
   <!-- 输出日志到文件 -->
   <appender name="es" class="com.civism.eslog.appender.EsAppender">
-    <param name="hosts" value="127.0.0.1:9200"/>
     <!-- 日志输出格式 -->
     <layout class="org.apache.log4j.PatternLayout">
       <param name="ConversionPattern" value="[%p][%d{yyyy-MM-dd HH:mm:ss SSS}][%c]-[%m]%n"/>

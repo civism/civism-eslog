@@ -1,0 +1,47 @@
+<properties>
+  <!--
+      创建demo需要的索引表结构
+  -->
+  <property name="createGuavaIndex">
+    <![CDATA[
+    {
+            "settings": {
+                "number_of_shards": 6,
+                "index.refresh_interval": "5s"
+            },
+            "mappings": {
+                "guava": {
+                    "properties": {
+                       "level": {
+                            "type": "text"
+                        },
+                         "loggerName": {
+                            "type": "text"
+                        },
+                         "threadName": {
+                            "type": "text"
+                        },
+                        "ip":{
+                            "type":"text"
+                        },
+                        "writeTime": {
+                            "type": "date",
+                             "format":"yyyy-MM-dd HH:mm:ss.SSS||yyyy-MM-dd'T'HH:mm:ss.SSS||yyyy-MM-dd HH:mm:ss||epoch_millis"
+                        },
+                        "message": {
+                            "type" : "text",
+                            "fields" : {
+                              "keyword" : {
+                                "type" : "keyword",
+                                "ignore_above" : 256
+                                  }
+                              }
+                         }
+                    }
+                }
+            }
+      }
+   ]]>
+  </property>
+
+</properties>

@@ -1,7 +1,13 @@
 package com.civism.eslog.appender;
 
+import com.civism.eslog.es.Guava;
+import com.civism.eslog.es.GuavaClient;
+import java.net.InetAddress;
 import org.apache.log4j.AppenderSkeleton;
+import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
+import org.frameworkset.elasticsearch.client.ClientInterface;
+import org.springframework.stereotype.Component;
 
 /**
  * @author : Guava
@@ -13,17 +19,35 @@ import org.apache.log4j.spi.LoggingEvent;
  * @Copyright: 版权所有 (C) 2019 蓝鲸淘.
  * @return
  */
+@Component
 public class EsAppender extends AppenderSkeleton {
 
-    private String hosts;
 
     /**
      * 打印日志核心方法
      */
     @Override
     protected void append(LoggingEvent loggingEvent) {
-        System.out.println(112222);
-        System.out.println(hosts);
+        Level level = loggingEvent.getLevel();
+        String loggerName = loggingEvent.getLoggerName();
+        Object message = loggingEvent.getMessage();
+        String threadName = loggingEvent.getThreadName();
+        long timeStamp = loggingEvent.getTimeStamp();
+
+        Guava guava = new Guava();
+        guava.setLevel(level.toString());
+        guava.setLoggerName(loggerName);
+        guava.setThreadName(threadName);
+        guava.setWriteTime(timeStamp);
+        try {
+            InetAddress address = InetAddress.getLocalHost();
+            guava.setIp(address.getHostAddress());
+        } catch (Exception e) {
+
+        }
+        guava.setMessage(message);
+        ClientInterface client = GuavaClient.getClient();
+        client.addDocument(GuavaClient.GUAVA, GuavaClient.GUAVA, guava);
     }
 
     /**
@@ -31,7 +55,7 @@ public class EsAppender extends AppenderSkeleton {
      */
     @Override
     public void close() {
-        System.out.println("21111");
+        GuavaClient.close();
     }
 
     /**
@@ -44,11 +68,4 @@ public class EsAppender extends AppenderSkeleton {
     }
 
 
-    public String getHosts() {
-        return hosts;
-    }
-
-    public void setHosts(String hosts) {
-        this.hosts = hosts;
-    }
 }
