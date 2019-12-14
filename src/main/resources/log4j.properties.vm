@@ -1,0 +1,21 @@
+#log4j.rootLogger=ERROR,dailyRolling
+#log4j.appender.dailyRolling=org.apache.log4j.DailyRollingFileAppender
+#log4j.appender.dailyRolling.Encoding=UTF-8
+#log4j.appender.dailyRolling.File=d:/logs/weds-pay
+#log4j.appender.dailyRolling.layout=org.apache.log4j.PatternLayout
+#log4j.appender.dailyRolling.layout.ConversionPattern=%d %p [%c.%M(%L)] - %m%n
+#log4j.appender.file.DatePattern=_yyyy-MM-dd'.log'
+#log4j.appender.file.layout.ConversionPattern=[%-5p] %d{yyyy-MM-dd HH:mm:ss,SSS} method:%l%n%m%n
+###
+#log4j.appender.CONSOLE=org.apache.log4j.ConsoleAppender
+#log4j.appender.CONSOLE.Encoding=UTF-8
+#log4j.appender.CONSOLE.Target=System.out
+#log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
+#log4j.appender.CONSOLE.layout.ConversionPattern=%d %p [%c] - %m%n
+###
+#log4j.logger.es=INFO,es
+#log4j.additivity.es=false  #false为不传递，也就说只输出到redis，不输出到本地磁盘了， true的话是传递，默认为true，写redis还写本地磁盘
+#log4j.appender.es=com.civism.eslog.appender.EsAppender
+#log4j.appender.es.hosts=127.0.0.1:9200
+#log4j.appender.es.layout=org.apache.log4j.PatternLayout
+#log4j.appender.es.layout.ConversionPattern=[%-5p] %d{yyyy-MM-dd HH:mm:ss,SSS} method:%l%n%m%n
